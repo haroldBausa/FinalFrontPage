@@ -51,21 +51,29 @@ namespace FinalFrontPage
 
             if (ImageNumber == 7) // Check if ImageNumber corresponds to the video
             {
-                // Load video and pause the timer
-                axWindowsMediaPlayer1.URL = @"C:\Users\USER\source\repos\FinalFrontPage\FinalFrontPage\Images & Video\Happy 41st Founding Year, STI!.mp4";
-                axWindowsMediaPlayer1.Visible = true;
-                axWindowsMediaPlayer1.Ctlcontrols.play();
+                // Use GetFullPath to resolve the relative path
+                string videoPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Images & Video\Happy 41st Founding Year, STI!.mp4"));
+                if (System.IO.File.Exists(videoPath))
+                {
+                    axWindowsMediaPlayer1.URL = videoPath;
+                    axWindowsMediaPlayer1.Visible = true;
+                    axWindowsMediaPlayer1.Ctlcontrols.play();
 
-                // Show the skip button while the video is playing
-                btnSkipVideo.Visible = true;
+                    // Show the skip button while the video is playing
+                    btnSkipVideo.Visible = true;
 
-                // Pause the timer while the video plays
-                timer1.Stop();
+                    // Pause the timer while the video plays
+                    timer1.Stop();
+                }
+                else
+                {
+                    MessageBox.Show($"Video file not found: {videoPath}");
+                }
             }
             else
             {
                 // Check if the image file exists before loading
-                string imagePath = $@"C:\Users\USER\source\repos\FinalFrontPage\FinalFrontPage\Images & Video\{ImageNumber}.jpg";
+                string imagePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@"..\..\Images & Video\{ImageNumber}.jpg"));
                 if (System.IO.File.Exists(imagePath))
                 {
                     pictureBox1.ImageLocation = imagePath;
@@ -80,6 +88,7 @@ namespace FinalFrontPage
                 timer1.Start();
             }
         }
+
 
         private void LoadChecked()
         {
