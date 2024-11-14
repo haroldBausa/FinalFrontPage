@@ -94,7 +94,7 @@ namespace FinalFrontPage
             // Ensure the appearance is reset after the video
             if (ImageNumber == 1)
             {
-                rb1.Select(); // Manually select rb1 to apply appearance consistent
+                rb1.Select(); // Manually select rb1 to apply appearance consistently
             }
         }
 
